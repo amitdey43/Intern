@@ -115,6 +115,9 @@ export const sendHr= asyncHandler(async(req,res,next)=>{
     let hr= await hrModel.findById(req.user._id).populate("shortlistedCandidates");
     let uh= await uhModel.find({hr:req.user._id}).populate("user").populate("hr").populate("internship");
     let totalc= uh.length;
+    let shortlistUh= await uhModel.find({hr:req.user._id,status:"shortlisted"}).populate("user").populate("hr").populate("internship");
+    console.log("shortlistUh");
+    
     let shortlisted= 0,pending=0,rejected=0;
     uh.forEach((intern)=>{
       if(intern.status==="shortlisted"){
@@ -135,6 +138,7 @@ export const sendHr= asyncHandler(async(req,res,next)=>{
       uh,
       totalc,
       shortlisted,
+      shortlistUh,
       pending,
       rejected
     })
@@ -297,3 +301,54 @@ export const logoutHr = asyncHandler(async (req, res, next) => {
     message: "Logged out successfully",
   });
 });
+
+export const interviewScheudle= asyncHandler(async(req,res,next)=>{
+    let {uhid}= req.params;
+    let interviewUh = await uhModel.find({hr:req.user._id,status:"shortlisted",interviewtime:{$ne:null}}).populate("user").populate("hr").populate("internship");
+    let uh = await uhModel.findById(uhid).populate("user").populate("hr").populate("internship");
+    res.status(200).json({
+      success:true,
+      interviewUh,
+      uh
+    })
+})
+
+export const setInterview = asyncHandler(async(req,res,next)=>{
+  let {selectedDate,selectedTime,uhid}= req.body;
+  let setTimeInterview= await uhModel.findById(uhid).populate("user");
+  selectedDate= selectedDate.slice(0,10);
+  
+  let date = new Date(`${selectedDate}T${selectedTime}:00`);
+  
+  if(date.getTimezoneOffset()==0) date = new Date(date.getTime() + date.getTimezoneOffset() * 60000);
+  console.log("date is ",date);
+  let hrInterview = await uhModel.find({hr:req.user._id,status:"shortlisted",interviewtime:{$ne:null}});
+  for(const interview of hrInterview){
+    if(date.getTime()>=interview.interviewtime.getTime() && date.getTime()<=new Date(interview.interviewtime+30*60*1000).getTime()){
+      return next(new ApiError(400,`Your scheduled Interview at ${interview.interviewtime.toLocaleTimeString({
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true,
+      })} take minimum 30 minutes to end`))
+    }
+    if(date.getTime()<=interview.interviewtime.getTime() && new Date(date+30*60*1000).getTime()>=interview.interviewtime.getTime()){
+      return next(new ApiError(400,`Next meeting starts at ${interview.interviewtime.toLocaleTimeString({
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true,
+      })}`))
+    }
+  }
+  setTimeInterview.interviewtime= date;
+  await setTimeInterview.save({
+    validateBeforeSave:false,
+  })
+  res.status(200).json({
+    success:true,
+    message:`Interview Scheduled with ${setTimeInterview.user.name} at ${date.toLocaleTimeString({
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true,
+      })}`
+  })
+})

@@ -1,5 +1,5 @@
 import express from "express"
-import { createInternship, forgotHrPasword, getInterndatatoedit, getInternship, getUserForHr, hrCreate, loginHr, logoutHr, resetForgotHrPassword, sendHr, updateInternship, userRejected, userShortlisted } from "../controller/hr.controller.js";
+import { createInternship, forgotHrPasword, getInterndatatoedit, getInternship, getUserForHr, hrCreate, interviewScheudle, loginHr, logoutHr, resetForgotHrPassword, sendHr, setInterview, updateInternship, userRejected, userShortlisted } from "../controller/hr.controller.js";
 import { IsLoggedin } from "../middleware/isLoggedin.js";
 
 const router= express.Router();
@@ -18,5 +18,7 @@ router.route("/condition/reject/:userid/:internid").get(IsLoggedin,userRejected)
 router.route("/get-internship/:internid").get(IsLoggedin,getInterndatatoedit);
 router.route("/update-internship/:internid").put(IsLoggedin,updateInternship);
 router.route("/logout").get(logoutHr);
+router.route("/interviewschedule/:uhid").get(IsLoggedin,interviewScheudle);
+router.route("/setinterview").post(IsLoggedin,setInterview);
 
 export default router;

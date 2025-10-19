@@ -18,6 +18,9 @@ import Internapply from "./component/Internapply";
 import UserProfileForHR from "./component/Getuserforhr";
 import { Editinternship } from "./Editinternship";
 import { Seementor } from "./component/Seementor";
+import { Usermentorchat } from "./component/Usermentorchat";
+import { MentorUserChat } from "./component/Mentoruserchat";
+import { Scheduletime } from "./component/Scheduletime";
 
 
 
@@ -44,6 +47,10 @@ function App1() {
         <Route path="/user/details/:id/:internid" element={<UserProfileForHR/>}/>
         <Route path="/edit/:internid" element={<Editinternship/>}/>
         <Route path="/seementor" element={<Seementor/>}/>
+        <Route path="/chat/:userId/:mentorId" element={<Usermentorchat/>}/>
+        <Route path="/chatvideo/:userId/:mentorId" element={<MentorUserChat/>}/>
+        <Route path="/schedule" element={<Scheduletime/>}/>
+        <Route path="/interview/:uhid" element={<Scheduletime/>}/>
       </Routes>
     </Router>
   );

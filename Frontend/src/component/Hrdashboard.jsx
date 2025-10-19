@@ -14,6 +14,7 @@ export const Hrdashboard = function () {
   const [pending,setPending]= useState("");
   const [rejected,setRejected]= useState("");
   const [uh,setUh]= useState("");
+  const [shortlistUh,setShortlistUh]= useState("");
   let navigate= useNavigate();
 
      let logout= function(){
@@ -39,6 +40,7 @@ useEffect(() => {
     setPending(res.data?.pending);
     setRejected(res.data?.rejected);
     setUh(res.data?.uh);
+    setShortlistUh(res.data?.shortlistUh);
   })
   .catch(() => {
     alert("There is problem to fetch user details");
@@ -254,72 +256,80 @@ useEffect(() => {
                   )}
 
                   {activeTab === "interviews" && (
-                    <div style={{
-                      background: "#ffffff",
-                      padding: "20px",
-                      borderRadius: "12px",
-                      boxShadow: "0 6px 18px rgba(0,0,0,0.1)",
-                      margin: "20px auto",
-                      maxWidth: "700px",
-                      fontFamily: "Segoe UI, Tahoma, Geneva, Verdana, sans-serif"
-                    }}>
-                      <h2 style={{
-                        textAlign: "center",
-                        marginBottom: "20px",
-                        fontSize: "22px",
-                        color: "#16a34a"
-                      }}>📅 Shortlisted Candidate</h2>
+                    <div className="mx-auto my-5 max-w-[700px] rounded-xl bg-white p-5 font-sans shadow-lg flex flex-col gap-2">
+                      <h2 className="mb-5 text-center text-[22px] text-green-600">
+                        📋 Interview Management
+                      </h2>
 
-                      <ul style={{
-                        listStyle: "none",
-                        padding: "0",
-                        margin: "0"
-                      }}>
-                        {Hr?.shortlistedCandidates?.map((candidate,index)=>(
-                          <li key={index} style={{
-                            background: index % 2 === 0 ? "#f9fafb" : "#ffffff",
-                            padding: "15px",
-                            marginBottom: "12px",
-                            borderRadius: "8px",
-                            display: "flex",
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                            border: "1px solid #e5e7eb",
-                            transition: "transform 0.2s, box-shadow 0.2s"
-                          }}
-                          onMouseOver={e => {
-                            e.currentTarget.style.transform = "scale(1.02)";
-                            e.currentTarget.style.boxShadow = "0 4px 12px rgba(0,0,0,0.08)";
-                          }}
-                          onMouseOut={e => {
-                            e.currentTarget.style.transform = "scale(1)";
-                            e.currentTarget.style.boxShadow = "none";
-                          }}
-                          >
-                            <span style={{ fontSize: "16px", fontWeight: "500", color: "#374151" }}>
-                              Schedule time for <strong style={{color:"#2563eb"}}>{candidate.name}</strong>
-                            </span>
-                            <button style={{
-                              background: "#2563eb",
-                              color: "white",
-                              padding: "8px 14px",
-                              border: "none",
-                              borderRadius: "8px",
-                              cursor: "pointer",
-                              fontWeight: "600",
-                              transition: "all 0.3s ease"
-                            }}
-                            onMouseOver={e => e.currentTarget.style.background = "#1d4ed8"}
-                            onMouseOut={e => e.currentTarget.style.background = "#2563eb"}
-                            >
-                              Schedule Time
-                            </button>
-                          </li>
-                        ))}
-                      </ul>
+                      {/* Scheduled Interviews Section */}
+                      <div className="mb-8">
+                        <h3 className="mb-3 text-lg font-semibold text-blue-700">
+                          ✅ Scheduled Interviews
+                        </h3>
+                        <ul className="m-0 list-none p-0">
+                          {shortlistUh
+                            ?.filter((uh) => uh?.interviewtime) // only those with interviewtime set
+                            .map((uh, index) => (
+                              <li
+                                key={index}
+                                className={`mb-3 flex items-center justify-between rounded-lg border border-gray-200 p-4 
+                                  transition-all duration-200 hover:scale-[1.02] hover:shadow-md
+                                  ${index % 2 === 0 ? "bg-gray-50" : "bg-white"}`}
+                              >
+                                <span className="text-base font-medium text-gray-700">
+                                  <strong className="text-blue-600">{uh?.user?.name}</strong> has an interview scheduled for the{" "}
+                                  <strong className="text-green-700">{uh?.internship?.title}</strong> role at{" "}
+                                  <strong className="text-blue-600">{uh?.internship?.companyname}</strong> <br />
+                                  <span className="text-sm text-gray-500">
+                                    📅 {new Date(uh?.interviewtime).toLocaleString()}
+                                  </span>
+                                </span>
+                              </li>
+                            ))}
+                          {shortlistUh?.filter((uh) => uh?.interviewtime).length === 0 && (
+                            <p className="text-gray-500">No interviews scheduled yet.</p>
+                          )}
+                        </ul>
+                      </div>
+
+                      {/* Not Scheduled Section */}
+                      <div>
+                        <h3 className="mb-3 text-lg font-semibold text-orange-600">
+                          ⏳ Shortlisted (Not Scheduled)
+                        </h3>
+                        <ul className="m-0 list-none p-0">
+                          {shortlistUh
+                            ?.filter((uh) => !uh?.interviewtime) // only those without interviewtime
+                            .map((uh, index) => (
+                              <li
+                                key={index}
+                                className={`mb-3 flex items-center justify-between rounded-lg border border-gray-200 p-4 
+                                  transition-all duration-200 hover:scale-[1.02] hover:shadow-md
+                                  ${index % 2 === 0 ? "bg-gray-50" : "bg-white"}`}
+                              >
+                                <span className="text-base font-medium text-gray-700">
+                                  Schedule time for <strong className="text-blue-600">{uh?.user?.name}</strong> for the{" "}
+                                  <strong className="text-green-700">{uh?.internship?.title}</strong> role at{" "}
+                                  <strong className="text-blue-600">{uh?.internship?.companyname}</strong>
+                                </span>
+                                <button
+                                  className="cursor-pointer rounded-lg border-none bg-blue-600 px-3.5 py-2 
+                                    font-semibold text-white transition-all duration-300 ease-in-out 
+                                    hover:bg-blue-700"
+                                    onClick={()=> navigate(`/interview/${uh._id}`)}
+                                >
+                                  Schedule Time
+                                </button>
+                              </li>
+                            ))}
+                          {shortlistUh?.filter((uh) => !uh?.interviewtime).length === 0 && (
+                            <p className="text-gray-500">All shortlisted candidates have been scheduled.</p>
+                          )}
+                        </ul>
+                      </div>
                     </div>
-
                   )}
+
 
                   {activeTab === "internships" && (
                     <Internships uh={uh} hr={Hr}/>

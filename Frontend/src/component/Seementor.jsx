@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState, useMemo, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 
 const GlobalStyles = () => (
   <style>{`
@@ -222,6 +223,7 @@ let addHandle= (mentorid,userid)=>{
 }
 
 const MentorCard = ({ mentor,user }) => {
+  let navigate = useNavigate()
   return (
     <div className="mentor-card">
       <div className="mentor-card-content">
@@ -244,11 +246,39 @@ const MentorCard = ({ mentor,user }) => {
             </span> */}
         </div>
       </div>
-     {user?.mentorAssigned?(user?.mentorAssigned?.toString()=== mentor?._id?.toString()?(<button   style={{
+
+              {user?.mentorAssigned ? (
+                user?.mentorAssigned?.toString() === mentor?._id?.toString() ? (
+                  <button
+                    style={{
+                      backgroundColor: mentor.activechat.includes(user._id)
+                        ? "green"
+                        : "orange",
+                    }}
+                    onClick={() => {
+                      if (mentor.activechat.includes(user._id)) {
+                        // 👉 only navigate, don’t join room here
+                        navigate(`/chat/${user._id}/${mentor._id}`);
+                      } else {
+                        alert("Your request is still pending!");
+                      }
+                    }}
+                  >
+                    {mentor.activechat.includes(user._id) ? "Start Chat" : "Request sent"}
+                  </button>
+                ) : (
+                  <button>You can assign only one mentor</button>
+                )
+              ) : (
+                <button onClick={() => addHandle(mentor._id, user._id)}>
+                  Request to Add
+                </button>
+             )}
+     {/* {user?.mentorAssigned?(user?.mentorAssigned?.toString()=== mentor?._id?.toString()?(<button   style={{
         backgroundColor: mentor.activechat.includes(user._id)
           ? "green"
           : "orange",
-      }} >{mentor.activechat.includes(user._id)?"Start Chat":"Request sent"}</button>):(<button>You can assign only one mentor</button>)):(<button onClick={()=>addHandle(mentor._id,user._id)}>Request to Add</button>)}
+      }} >{mentor.activechat.includes(user._id)?"Start Chat":"Request sent"}</button>):(<button>You can assign only one mentor</button>)):(<button onClick={()=>addHandle(mentor._id,user._id)}>Request to Add</button>)} */}
       
       {/* <button onClick={()=>addHandle(mentor._id,user._id)}>Request to Add</button> */}
     </div>
@@ -259,6 +289,7 @@ const MentorCard = ({ mentor,user }) => {
 
 
 export const Seementor= function() {
+  
   let [mentors,setMentor]= useState([]);  
   let [user,setUser]= useState("");
   useEffect(()=>{

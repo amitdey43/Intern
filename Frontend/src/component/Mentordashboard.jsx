@@ -412,7 +412,7 @@ let handleAccept = (userid,mentorid)=>{
                         {use.status === "pending" ? (
                           <button className="action-button" onClick={()=>handleAccept(use.user._id,use.mentor)}>Accept request</button>
                         ) : (
-                          <button className="action-button" style={{backgroundColor:"green"}}>Guide Student</button>
+                          <button className="action-button" style={{backgroundColor:"green"}} onClick={()=>navigate(`/chatvideo/${use.user._id}/${use.mentor}`)}>Guide Student</button>
                         )}
                       </td>
                       <td>

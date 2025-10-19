@@ -18,6 +18,10 @@ let uhSchema= new mongoose.Schema({
       hr: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "HR",
+      },
+      interviewtime:{
+        type:Date,
+        default:null
       }
 },{timestamps:true})
 
