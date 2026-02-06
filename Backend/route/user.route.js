@@ -1,5 +1,5 @@
 import express from "express";
-import {  addMentor, allInternships, applyInternship, avaMentor, createUser, finalApply, forgotUserPasword, loginUser, logoutUser, resetForgotPassword, sendUser, updateProfile, viewEachInternship } from "../controller/user.controller.js";
+import {  addMentor, allInternships, applyInternship, avaMentor, createUser, finalApply, forgotUserPasword, loginUser, logoutUser, recommendation, resetForgotPassword, sendUser, updateProfile, viewEachInternship } from "../controller/user.controller.js";
 import { upload } from "../utilis/coludinary.js";
 import { IsLoggedin } from "../middleware/isLoggedin.js";
 let router= express.Router();
@@ -11,7 +11,7 @@ router.route("/register").post( upload.fields([
 router.route("/login").post(loginUser);
 router.route("/forgot-password").post(forgotUserPasword);
 router.route("/reset-password/:token").post(resetForgotPassword);
-router.route("/internships").get(allInternships);
+router.route("/internships").get(IsLoggedin,allInternships);
 router.route("/internship").post(IsLoggedin,viewEachInternship);
 router.route("/apply/:id").get(IsLoggedin,applyInternship);
 router.route("/finalapply").post(
@@ -35,4 +35,5 @@ router.route("/updateProfile/:id").post(
 router.route("/logout").get(logoutUser);
 router.route("/seementor").get(IsLoggedin,avaMentor);
 router.route("/addmentor").post(IsLoggedin,addMentor);
+router.route("/internships/:role").post(IsLoggedin,recommendation)
 export default router

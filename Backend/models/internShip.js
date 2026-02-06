@@ -13,7 +13,7 @@ const internshipSchema = new mongoose.Schema({
   },
   department: {
     type: String,
-    required: [true, "Department is required"],
+    // required: [true, "Department is required"],
     enum: [
       "Engineering",
       "Marketing",

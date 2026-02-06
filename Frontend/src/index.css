@@ -295,7 +295,6 @@ button:hover {
 
 
 
- /* --- Basic Reset & Typography --- */
    
     :root {
         --indigo-600: #4f46e5;
@@ -334,7 +333,6 @@ button:hover {
         color: inherit;
     }
     
-    /* --- Layout --- */
     .container {
         width:100%;
         margin-left: auto;
@@ -344,7 +342,6 @@ button:hover {
         padding-top: 1rem;
     }
 
-    /* --- Header --- */
     .headerr {
         background-color: white;
         box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
@@ -372,7 +369,7 @@ button:hover {
     }
 
     .nav-links {
-        display: none; /* Hidden on mobile */
+        display: none;
     }
 
     .nav-links a {
@@ -385,7 +382,6 @@ button:hover {
         color: var(--indigo-600);
     }
 
-    /* --- Buttons --- */
     .btn {
         display: inline-block;
         padding: 0.5rem 1.25rem;
@@ -418,7 +414,6 @@ button:hover {
         transform: scale(1.05);
     }
 
-    /* --- Hero Section --- */
     .hero {
         padding: 5rem 0;
         background-color: var(--white);
@@ -441,7 +436,6 @@ button:hover {
         margin: 0 auto 2rem auto;
     }
 
-    /* --- Sections --- */
     .section {
         padding: 5rem 0;
     }
@@ -464,7 +458,6 @@ button:hover {
         margin-right: auto;
     }
     
-    /* --- AI Generator --- */
     .generator-card {
         max-width: 42rem;
         margin: 0 auto;
@@ -495,7 +488,6 @@ button:hover {
         border-radius: 0.5rem;
     }
 
-    /* --- Features --- */
     .features-grid {
         display: grid;
         gap: 2.5rem;
@@ -543,7 +535,6 @@ button:hover {
         margin:0;
     }
     
-    /* --- Results & Spinner --- */
     .results-container { margin-top: 3rem; max-width: 56rem; margin-left: auto; margin-right: auto; }
     .result-header { text-align: center; background-color: var(--white); padding: 2rem; border-radius: 0.75rem; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
     .result-header h3 { font-size: 1.875rem; color: var(--indigo-600); font-weight: 800; }
@@ -557,7 +548,7 @@ button:hover {
 
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* --- Footer --- */
+   
     .footer {
         background-color: var(--gray-800);
         color: var(--white);
@@ -589,7 +580,6 @@ button:hover {
         color: var(--white);
     }
     
-    /* --- Chatbot --- */
     .chat-widget {
       position: fixed;
       bottom: 1.5rem;
@@ -600,8 +590,8 @@ button:hover {
     }
     
     .chat-window {
-      width: 20rem; /* 320px */
-      height: 24rem; /* 384px */
+      width: 20rem; 
+      height: 24rem; 
       background-color: var(--white);
       border-radius: 0.5rem;
       box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
@@ -746,7 +736,6 @@ button:hover {
       height: 2rem;
     }
 
-    /* --- Responsive Design --- */
     @media (min-width: 768px) {
         .nav-links {
             display: flex;
@@ -821,7 +810,7 @@ button:hover {
   margin-top: 10px;
 }
 .apply-btn:hover {
-  background: #0056b3;
+  background: #0056b3
 }
 .no-results {
   text-align: center;

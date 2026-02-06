@@ -4,6 +4,8 @@ import { Internships } from "./internships";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+
+
 export const Hrdashboard = function () {
   const [activeTab, setActiveTab] = useState("overview");
   const [domains, setDomains] = useState([]);

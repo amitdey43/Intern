@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export const Login = function () {
   let navigate = useNavigate();
@@ -21,8 +22,7 @@ export const Login = function () {
         navigate(`/${role.toLowerCase()}/dashboard`);
       })
       .catch((err) => {
-        console.error(err.response?.data);
-        alert(`${err.response?.data.message}`);
+        toast.error(err.response?.data.message);
       });
   };
 

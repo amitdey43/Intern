@@ -3,6 +3,7 @@ import "./App.css";
 import axios from "axios";
 import { Project } from "./component/project";
 import { useNavigate } from "react-router-dom";
+import { SKILLS } from "./component/Createintership";
 
 function App() {
   const [formData, setFormData] = useState({
@@ -33,6 +34,35 @@ function App() {
       },
     ],
   });
+    const [domainInput, setDomainInput] = useState("");
+    const [suggest,setSuggest]=useState([]);
+    const handlesuggection= (e)=>{
+      let value= e.target.value;
+      setDomainInput(value)
+      if(value.length==0){
+        setSuggest([])
+        return
+      }
+      let filtered = SKILLS.filter((skill)=>(skill.toLowerCase().startsWith(value.toLowerCase())))
+      setSuggest(filtered.slice(0,5));
+    }
+   
+    const handleAddDomain = (e) => {
+      e.preventDefault();
+      const trimmed = domainInput.trim();
+      if (trimmed && !formData.skills.includes(trimmed)) {
+        setFormData({ ...formData, skills: [...formData.skills, trimmed] });
+        setDomainInput("");
+      }
+    };
+  
+    
+    const handleRemoveDomain = (skill) => {
+      setFormData({
+        ...formData,
+        skills: formData.skills.filter((d) => d !== skill)
+      });
+    };
 
   let [error, setError] = useState("");
   const handleSubmit = (e) => {
@@ -250,18 +280,30 @@ function App() {
     <h3>Skills & Projects</h3>
 
     <label>Skills</label>
-    <input
-      type="text"
-      name="skills"
-      placeholder="e.g. Java, Python, React"
-      value={formData.skills}
-      onChange={(e) =>
-        setFormData((prev) => ({
-          ...prev,
-          skills: e.target.value.split(",").map((s) => s.trim()),
-        }))
-      }
-    />
+    <div className="domain-input">
+            <input
+              type="text"
+              placeholder="Type skill and select for suggestion"
+              value={domainInput}
+              onChange={handlesuggection}
+            />
+            {suggest.map((suu,i)=>(
+              <span style={{backgroundColor:"yellowgreen",color:"black",cursor:true}} key={i} onClick={(e)=> {setDomainInput(suu);setSuggest([])}}>
+                {suu}
+              </span>
+            ))}
+            <button onClick={handleAddDomain}>+ Add</button>
+          </div>
+          <div className="domain-list">
+            {formData.skills.map((d, idx) => (
+              <span className="domain-item" key={idx}>
+                {d}{" "}
+                <span className="remove" onClick={() => handleRemoveDomain(d)}>
+                  ✖
+                </span>
+              </span>
+            ))}
+          </div>
 
     <Project formData={data} setFormData={setData} />
   </div>

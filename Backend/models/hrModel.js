@@ -7,7 +7,7 @@ import crypto from "crypto"
 let hrSchema= new mongoose.Schema({
     name: {
         type: String,
-        required: [true,"Student name is required"],
+        required: [true,"Name is required"],
         trim:true,
         minLength: [3,"Name should contain atleast 3 character"],
     },

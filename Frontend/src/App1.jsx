@@ -21,12 +21,16 @@ import { Seementor } from "./component/Seementor";
 import { Usermentorchat } from "./component/Usermentorchat";
 import { MentorUserChat } from "./component/Mentoruserchat";
 import { Scheduletime } from "./component/Scheduletime";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import RecommendedJobsPage from "./component/recommend";
 
 
 
 
 function App1() {
   return (
+    <>
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
@@ -51,8 +55,11 @@ function App1() {
         <Route path="/chatvideo/:userId/:mentorId" element={<MentorUserChat/>}/>
         <Route path="/schedule" element={<Scheduletime/>}/>
         <Route path="/interview/:uhid" element={<Scheduletime/>}/>
+        <Route path="/recommended/:role/:pre" element={<RecommendedJobsPage/>}/>
       </Routes>
     </Router>
+     <ToastContainer position="top-right" autoClose={3000} />
+    </>
   );
 }
 

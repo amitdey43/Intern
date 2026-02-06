@@ -126,9 +126,16 @@ export const allInternships= asyncHandler(async(req,res,next)=>{
   // let internships = await internshipModel.find();
   const apiFeature = new ApiFunction(internshipModel.find(),req.query).search().filter().stipend().sort();
   const products= await apiFeature.query;
+  const skills= req.user.role=="Student"?req.user.skills:[]
+  const role=req.user.role
+  console.log(skills);
+  
+  
   res.status(200).json({
     success:true,
-    products
+    products,
+    skills,
+    role
   })
 })
 
@@ -339,3 +346,23 @@ export const addMentor= asyncHandler(async(req,res,next)=>{
     user
   })
 })
+
+export const recommendation = asyncHandler(async (req, res, next) => {
+  const { role } = req.params;
+  const { huu } = req.body;
+  console.log(huu);
+  
+  let x=1
+  if(huu=="-1"){
+    x=-1
+  }
+
+  let query = internshipModel.find({ domain: role }).sort({ stipend: x });
+
+  const intern = await query;
+
+  res.status(200).json({
+    success: true,
+    intern
+  });
+});

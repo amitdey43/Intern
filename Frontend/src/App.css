@@ -1,4 +1,4 @@
-
+/* 
 
 .logo {
   height: 6em;
@@ -118,7 +118,7 @@
 
 
 
-/* Center the box on the screen */
+
 .login-container {
   display: flex;
   justify-content: center;
@@ -127,7 +127,6 @@
   background-color: #f3f4f6;
 }
 
-/* The card container */
 .login-box {
   background-color: white;
   padding: 40px;
@@ -140,7 +139,6 @@
   gap: 20px;
 }
 
-/* Title */
 .login-title {
   font-size: 24px;
   font-weight: bold;
@@ -148,30 +146,26 @@
   margin-bottom: 10px;
 }
 
-/* Buttons inside the card */
 .login-btn {
   width: 100%;
   text-align: center;
   padding: 12px 0;
   color: white;
   font-weight: 600;
-  border-radius: 12px;
+  border-radius 12px;
   text-decoration: none;
   transition: transform 0.3s, box-shadow 0.3s;
   display: block;
 }
 
-/* Individual colors */
-.user-btn { background-color: #3b82f6; }  /* blue */
-.mentor-btn { background-color: #10b981; } /* green */
-.hr-btn { background-color: #8b5cf6; }     /* purple */
+.user-btn { background-color: #3b82f6; }  
+.mentor-btn { background-color: #10b981; } 
+.hr-btn { background-color: #8b5cf6; }     
 
-/* Hover pop-up effect */
 .login-btn:hover {
   transform: scale(1.05);
   box-shadow: 0 10px 20px rgba(0,0,0,0.2);
 }
-/* Full page centering */
 .login-container {
   height: 100vh;
   display: flex;
@@ -181,7 +175,6 @@
   font-family: Arial, sans-serif;
 }
 
-/* Box styling */
 .login-box {
   background: #fff;
   padding: 30px 40px;
@@ -191,13 +184,11 @@
   text-align: center;
 }
 
-/* Title */
 .login-box h2 {
   margin-bottom: 20px;
   color: #333;
 }
 
-/* Input fields */
 .login-box input,
 .login-box select {
   width: 100%;
@@ -209,14 +200,12 @@
   transition: 0.3s;
 }
 
-/* Focus effect */
 .login-box input:focus,
 .login-box select:focus {
   border-color: #2575fc;
   box-shadow: 0 0 8px rgba(37, 117, 252, 0.4);
 }
 
-/* Button styling */
 .login-box button {
   width: 100%;
   padding: 12px;
@@ -231,12 +220,10 @@
   transition: 0.3s;
 }
 
-/* Button hover */
 .login-box button:hover {
   background: #6a11cb;
   transform: scale(1.05);
 }
-/* Forgot Password Button */
 .forgot-btn {
   width: 100%;
   padding: 10px;
@@ -256,7 +243,6 @@
   transform: scale(1.05);
 }
 
-/* Register Button */
 .register-btn {
   width: 100%;
   padding: 10px;
@@ -284,7 +270,6 @@
   font-family: Arial, sans-serif;
 }
 
-/* Header */
 .header {
   position: fixed;
   top: 0;
@@ -321,7 +306,7 @@
   margin-right: 10px;
 }
 
-/* Sidebar */
+
 .sidebar {
   width: 220px;
   background: #34495e;
@@ -373,7 +358,7 @@
   box-shadow: inset 2px 2px 8px rgba(0, 0, 0, 0.3);
 }
 
-/* Main */
+
 .main {
   flex: 1;
   margin-left: 220px;
@@ -619,4 +604,4 @@
 .domain-item .remove {
   cursor: pointer;
   font-weight: bold;
-}
+} */
